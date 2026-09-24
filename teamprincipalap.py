@@ -1,4 +1,4 @@
-"""Team principal simulator"""
+"""Team principal simulator."""
 # Advanced Processes
 # Evie W
 # 3/08
@@ -13,23 +13,24 @@ def display_drivers(drivers):
 
     # Print a clean display
     for data in drivers:
-        print(("Name: {} | Speed: {} | Racecraft: {} Aggressive: {} |").format(
+        print(("Name: {} | Speed: {} | Racecraft: {} | Aggressive: {}").format(
             data["name"], data["speed"], data["racecraft"], data["aggressive"]))
         
 def display_costs(drivers, balance):
-    """Print a clean report of driver prices"""
+    """Print a clean report of driver prices."""
 
     # Print title and balance for user
     print("\n--- Driver Costs ---")
-    print(balance)
-
+    print(("Your current balance is: {} million").format(balance))
+    print("------------------------")
+    
     # Print out all drivers and their cost in a clean display
     for data in drivers:
          print(("Name: {} | Cost: {} million").format(data["name"], data["cost"]))
 
 
 def buy_drivers(drivers, balance, player_profile):
-    """Allow drivers to buy two drivers"""
+    """Allow drivers to buy two drivers."""
     
     # Print titles for user
     print("\n--- Driver Purchase ---")
@@ -77,7 +78,7 @@ def buy_drivers(drivers, balance, player_profile):
 
 
 def race_sim(drivers, player_profile, balance):
-    """Simulate a race"""
+    """Simulate a race."""
 
     # Print titles for user
     print("\n--- Race Simulation ---")
@@ -90,10 +91,10 @@ def race_sim(drivers, player_profile, balance):
     for driver in drivers:
 
         # Calculate score using driver stats
-        scoring = (driver["speed"] * 0.5 + driver["racecraft"] * 0.3 + driver["aggressive"] * 0.2)
+        scoring = (driver["speed"] * 0.5 + driver["racecraft"] * 0.3 + driver["aggressive"] * 0.2) # CONSTANTS NOT NUMBERS
 
         # Add race day luck
-        scoring += random.randint(-3, 3)
+        scoring += random.randint(-3, 3) # CHANGE MORE MAX WINS
 
         # Add result to the results list
         results.append({"name": driver["name"], "scoring": scoring})
@@ -116,9 +117,9 @@ def race_sim(drivers, player_profile, balance):
         # Check for P1 driver
         if position == 1:
 
-            # Check users drivers agains highest
+            # Check users drivers agains highest scoring driver
             if highest["name"].split()[0] == player_profile["driver_one"] or highest["name"].split()[0] == player_profile["driver_two"]:
-
+ 
                 # Print
                 print("Congrats on your win, you get 5 million")
                 balance += 5
@@ -130,7 +131,7 @@ def race_sim(drivers, player_profile, balance):
     return balance
     
 def team_info(player_profile):
-    """Users can see their team"""
+    """Users can see their team."""
 
     # Print titles for user
     print("\n--- Team Information ---")
@@ -154,19 +155,19 @@ def track_info():
     print("Aggressive: 2/10")
         
 def main():
-
+    """Main menu."""
     # Set up variables
     player_profile = {"driver_one": "" , "driver_two": ""}
     balance = 30
     drivers = [
-        {"ID": 1, "name": "lando norizz", "speed": 94, "racecraft": 90, "aggressive": 82, "cost":15, "stock": 1},
-        {"ID": 2, "name": "charles lecorrect", "speed": 96, "racecraft": 88, "aggressive": 84, "cost":17, "stock": 1},
-        {"ID": 3, "name": "liam lawsuit", "speed": 87, "racecraft": 86, "aggressive": 90, "cost":7, "stock": 1},
-        {"ID": 4, "name": "max verstopping", "speed": 99, "racecraft": 97, "aggressive": 94, "cost":22, "stock": 1},
-        {"ID": 5, "name": "issac badjar", "speed": 88, "racecraft": 85, "aggressive": 87, "cost":8, "stock": 1},
-        {"ID": 6, "name": "george russelling", "speed": 93, "racecraft": 89, "aggressive": 85, "cost":13, "stock": 1},
-        {"ID": 7, "name": "kimi antonoodle", "speed": 92, "racecraft": 88, "aggressive": 84, "cost":11, "stock": 1},
-        {"ID": 8, "name": "lewis hamiltown", "speed": 91, "racecraft": 96, "aggressive": 83, "cost":14, "stock": 1}
+        {"name": "lando norizz", "speed": 94, "racecraft": 90, "aggressive": 82, "cost":15, "stock": 1},
+        {"name": "charles lecorrect", "speed": 96, "racecraft": 88, "aggressive": 84, "cost":17, "stock": 1},
+        {"name": "liam lawsuit", "speed": 87, "racecraft": 86, "aggressive": 90, "cost":7, "stock": 1},
+        {"name": "max verstopping", "speed": 99, "racecraft": 97, "aggressive": 94, "cost":22, "stock": 1},
+        {"name": "issac badjar", "speed": 88, "racecraft": 85, "aggressive": 87, "cost":8, "stock": 1},
+        {"name": "george russelling", "speed": 93, "racecraft": 89, "aggressive": 85, "cost":13, "stock": 1},
+        {"name": "kimi antonoodle", "speed": 92, "racecraft": 88, "aggressive": 84, "cost":11, "stock": 1},
+        {"name": "lewis hamiltown", "speed": 91, "racecraft": 96, "aggressive": 83, "cost":14, "stock": 1}
     ]
 
     # Welcome the players
