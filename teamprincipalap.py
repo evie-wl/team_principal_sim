@@ -77,7 +77,7 @@ def buy_drivers(drivers, balance, player_profile):
     return balance
 
 
-def race_sim(drivers, player_profile, balance):
+def race_sim(drivers, player_profile, balance, australia):
     """Simulate a race."""
 
     # Print titles for user
@@ -90,8 +90,10 @@ def race_sim(drivers, player_profile, balance):
     # Go through all the drivers
     for driver in drivers:
 
-        # Calculate score using driver stats
-        scoring = (driver["speed"] * 0.5 + driver["racecraft"] * 0.3 + driver["aggressive"] * 0.2)
+        # Calculate score using driver stats and race stats
+        scoring = (driver["speed"] * australia["speed"] +
+           driver["racecraft"] * australia["racecraft"] +
+           driver["aggressive"] * australia["aggressive"])
 
         # Add race day luck
         scoring += random.randint(-5, 5)
@@ -159,6 +161,14 @@ def main():
     # Set up variables
     player_profile = {"driver_one": "" , "driver_two": ""}
     balance = 30
+
+    # Track stats
+    australia = {
+    "speed": 0.5,
+    "racecraft": 0.3,
+    "aggressive": 0.2
+    }
+    
     drivers = [
         {"name": "lando norizz", "speed": 94, "racecraft": 90, "aggressive": 82, "cost":15, "stock": 1},
         {"name": "charles lecorrect", "speed": 96, "racecraft": 88, "aggressive": 84, "cost":17, "stock": 1},
