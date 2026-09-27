@@ -94,7 +94,7 @@ def race_sim(drivers, player_profile, balance):
         scoring = (driver["speed"] * 0.5 + driver["racecraft"] * 0.3 + driver["aggressive"] * 0.2)
 
         # Add race day luck
-        scoring += random.randint(-3, 3)
+        scoring += random.randint(-5, 5)
 
         # Add result to the results list
         results.append({"name": driver["name"], "scoring": scoring})
