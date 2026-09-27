@@ -1,65 +1,75 @@
 """Team principal simulator."""
+
 # Advanced Processes
 # Evie W
 # 3/08
 
 import random
 
+
 def display_drivers(drivers):
     """Print a clean report of driver information."""
-
     # Print title for user
     print("\n--- Driver Stats ---")
 
     # Print a clean display
     for data in drivers:
-        print(("Name: {} | Speed: {} | Racecraft: {} | Aggressive: {}").format(
-            data["name"], data["speed"], data["racecraft"], data["aggressive"]))
-        
+        print(
+            ("Name: {} | Speed: {} | Racecraft: {} | Aggressive: {}").format(
+                data["name"],
+                data["speed"],
+                data["racecraft"],
+                data["aggressive"],
+            )
+        )
+
+
 def display_costs(drivers, balance):
     """Print a clean report of driver prices."""
-
     # Print title and balance for user
     print("\n--- Driver Costs ---")
     print(("Your current balance is: {} million").format(balance))
     print("------------------------")
-    
+
     # Print out all drivers and their cost in a clean display
     for data in drivers:
-         print(("Name: {} | Cost: {} million").format(data["name"], data["cost"]))
+        print(
+            ("Name: {} | Cost: {} million").format(data["name"], data["cost"])
+        )
 
 
 def buy_drivers(drivers, balance, player_profile):
     """Allow drivers to buy two drivers."""
-    
     # Print titles for user
     print("\n--- Driver Purchase ---")
 
     # Ask user which driver they would like to buy
-    choice = input("Enter the first name of the driver you would like to purchase: ").strip().lower()
+    choice = (
+        input(
+            "Enter the first name of the driver you would like to purchase: "
+        ).strip().lower())
 
-    
     for data in drivers:
-        # If user choice does not equal a drivers first name, go to the next one
+        # If user choice does not equal a drivers first name, go to the next
         if choice != data["name"].split()[0]:
             continue
 
         # Check if they have already bought the driver
         if data["stock"] <= 0:
             print("Sorry, you have already bought this driver.")
-            return balance
-        
+            return balance, False
+
         # Get the set cost of prize user chose
         charge = data["cost"]
 
         # Check if the player has enough tickets to afford it
         if balance < charge:
             print("Sorry, you don't have enough money to buy this driver.")
-            return balance
+            return balance, False
 
         # Remove driver from stock so they can't buy again
         data["stock"] -= 1
-        
+
         # Update the users balance and profile with their new driver
         if player_profile["driver_one"] == "":
             player_profile["driver_one"] = choice
@@ -70,16 +80,15 @@ def buy_drivers(drivers, balance, player_profile):
 
         # Message of success and balance return
         print(("You have successfully bought {} for your team").format(choice))
-        return balance
+        return balance, True
 
     # Message if user enters a name that is not one of the drivers'
     print("That driver does not exist! Please try again.")
-    return balance
+    return balance, False
 
 
 def race_sim(drivers, player_profile, balance, australia):
     """Simulate a race."""
-
     # Print titles for user
     print("\n--- Race Simulation ---")
     print("------------------------")
@@ -91,23 +100,25 @@ def race_sim(drivers, player_profile, balance, australia):
     for driver in drivers:
 
         # Calculate score using driver stats and race stats
-        scoring = (driver["speed"] * australia["speed"] +
-           driver["racecraft"] * australia["racecraft"] +
-           driver["aggressive"] * australia["aggressive"])
+        scoring = (
+            driver["speed"] * australia["speed"]
+            + driver["racecraft"] * australia["racecraft"]
+            + driver["aggressive"] * australia["aggressive"]
+        )
 
         # Add race day luck
         scoring += random.randint(-5, 5)
 
         # Add result to the results list
         results.append({"name": driver["name"], "scoring": scoring})
-        
+
     # Variable for positions
     position = 1
 
     # Start loop for drivers in results
     while results:
         highest = results[0]
-    
+
         # Sort drivers
         for result in results:
             if result["scoring"] > highest["scoring"]:
@@ -120,8 +131,11 @@ def race_sim(drivers, player_profile, balance, australia):
         if position == 1:
 
             # Check users drivers agains highest scoring driver
-            if highest["name"].split()[0] == player_profile["driver_one"] or highest["name"].split()[0] == player_profile["driver_two"]:
- 
+            if (
+                highest["name"].split()[0] == player_profile["driver_one"]
+                or highest["name"].split()[0] == player_profile["driver_two"]
+            ):
+
                 # Print
                 print("Congrats on your win, you get 5 million")
                 balance += 5
@@ -131,21 +145,21 @@ def race_sim(drivers, player_profile, balance, australia):
         position += 1
 
     return balance
-    
+
+
 def team_info(player_profile):
     """Users can see their team."""
-
     # Print titles for user
     print("\n--- Team Information ---")
     print("------------------------")
 
-    # Print info    
+    # Print info
     print("Driver one:", player_profile["driver_one"])
-    print("Driver two:", player_profile["driver_two"])        
+    print("Driver two:", player_profile["driver_two"])
+
 
 def track_info():
-    """Australia track information"""
-    
+    """Australia track information."""
     # Print titles for user
     print("\n--- Track Information ---")
     print("------------------------")
@@ -155,29 +169,82 @@ def track_info():
     print("Speed: 5/10")
     print("Racecraft: 4/10")
     print("Aggressive: 2/10")
-        
+
+
 def main():
-    """Main menu."""
+    """Run the main menu."""
     # Set up variables
-    player_profile = {"driver_one": "" , "driver_two": ""}
+    player_profile = {"driver_one": "", "driver_two": ""}
     balance = 30
 
     # Track stats
-    australia = {
-    "speed": 0.5,
-    "racecraft": 0.3,
-    "aggressive": 0.2
-    }
-    
+    australia = {"speed": 0.5, "racecraft": 0.3, "aggressive": 0.2}
+
     drivers = [
-        {"name": "lando norizz", "speed": 94, "racecraft": 90, "aggressive": 82, "cost":15, "stock": 1},
-        {"name": "charles lecorrect", "speed": 96, "racecraft": 88, "aggressive": 84, "cost":17, "stock": 1},
-        {"name": "liam lawsuit", "speed": 87, "racecraft": 86, "aggressive": 90, "cost":7, "stock": 1},
-        {"name": "max verstopping", "speed": 96, "racecraft": 93, "aggressive": 92, "cost":22, "stock": 1},
-        {"name": "issac badjar", "speed": 88, "racecraft": 85, "aggressive": 87, "cost":8, "stock": 1},
-        {"name": "george russelling", "speed": 93, "racecraft": 89, "aggressive": 85, "cost":13, "stock": 1},
-        {"name": "kimi antonoodle", "speed": 92, "racecraft": 88, "aggressive": 84, "cost":11, "stock": 1},
-        {"name": "lewis hamiltown", "speed": 91, "racecraft": 96, "aggressive": 83, "cost":14, "stock": 1}
+        {
+            "name": "lando norizz",
+            "speed": 94,
+            "racecraft": 90,
+            "aggressive": 82,
+            "cost": 15,
+            "stock": 1,
+        },
+        {
+            "name": "charles lecorrect",
+            "speed": 96,
+            "racecraft": 88,
+            "aggressive": 84,
+            "cost": 17,
+            "stock": 1,
+        },
+        {
+            "name": "liam lawsuit",
+            "speed": 87,
+            "racecraft": 86,
+            "aggressive": 90,
+            "cost": 7,
+            "stock": 1,
+        },
+        {
+            "name": "max verstopping",
+            "speed": 96,
+            "racecraft": 93,
+            "aggressive": 92,
+            "cost": 22,
+            "stock": 1,
+        },
+        {
+            "name": "issac badjar",
+            "speed": 88,
+            "racecraft": 85,
+            "aggressive": 87,
+            "cost": 8,
+            "stock": 1,
+        },
+        {
+            "name": "george russelling",
+            "speed": 93,
+            "racecraft": 89,
+            "aggressive": 85,
+            "cost": 13,
+            "stock": 1,
+        },
+        {
+            "name": "kimi antonoodle",
+            "speed": 92,
+            "racecraft": 88,
+            "aggressive": 84,
+            "cost": 11,
+            "stock": 1,
+        },
+        {
+            "name": "lewis hamiltown",
+            "speed": 91,
+            "racecraft": 96,
+            "aggressive": 83,
+            "cost": 14,
+            "stock": 1,
+        },
     ]
 
     # Welcome the players
@@ -217,17 +284,26 @@ def main():
 
         elif user_choice == "3":
             print("Choose your first driver")
-            balance = buy_drivers(drivers, balance, player_profile)
+            balance, successful = buy_drivers(drivers, balance, player_profile)
+            while not successful:
+                print("Please try again")
+                balance, successful = buy_drivers(
+                    drivers, balance, player_profile
+                )
 
             print("Choose your second driver")
-            balance = buy_drivers(drivers, balance, player_profile)
+            balance, successful = buy_drivers(drivers, balance, player_profile)
+            while not successful:
+                print("Please try again")
+                balance, successful = buy_drivers(
+                    drivers, balance, player_profile
+                )
 
         elif user_choice == "4":
             balance = race_sim(drivers, player_profile, balance, australia)
 
         elif user_choice == "5":
             team_info(player_profile)
-            
 
         elif user_choice == "6":
             track_info()
