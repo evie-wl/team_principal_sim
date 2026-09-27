@@ -223,7 +223,7 @@ def main():
             balance = buy_drivers(drivers, balance, player_profile)
 
         elif user_choice == "4":
-            balance = race_sim(drivers, player_profile, balance)
+            balance = race_sim(drivers, player_profile, balance, australia)
 
         elif user_choice == "5":
             team_info(player_profile)
