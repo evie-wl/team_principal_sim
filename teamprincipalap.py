@@ -91,10 +91,10 @@ def race_sim(drivers, player_profile, balance):
     for driver in drivers:
 
         # Calculate score using driver stats
-        scoring = (driver["speed"] * 0.5 + driver["racecraft"] * 0.3 + driver["aggressive"] * 0.2) # CONSTANTS NOT NUMBERS
+        scoring = (driver["speed"] * 0.5 + driver["racecraft"] * 0.3 + driver["aggressive"] * 0.2)
 
         # Add race day luck
-        scoring += random.randint(-3, 3) # CHANGE MORE MAX WINS
+        scoring += random.randint(-3, 3)
 
         # Add result to the results list
         results.append({"name": driver["name"], "scoring": scoring})
@@ -163,7 +163,7 @@ def main():
         {"name": "lando norizz", "speed": 94, "racecraft": 90, "aggressive": 82, "cost":15, "stock": 1},
         {"name": "charles lecorrect", "speed": 96, "racecraft": 88, "aggressive": 84, "cost":17, "stock": 1},
         {"name": "liam lawsuit", "speed": 87, "racecraft": 86, "aggressive": 90, "cost":7, "stock": 1},
-        {"name": "max verstopping", "speed": 99, "racecraft": 97, "aggressive": 94, "cost":22, "stock": 1},
+        {"name": "max verstopping", "speed": 96, "racecraft": 93, "aggressive": 92, "cost":22, "stock": 1},
         {"name": "issac badjar", "speed": 88, "racecraft": 85, "aggressive": 87, "cost":8, "stock": 1},
         {"name": "george russelling", "speed": 93, "racecraft": 89, "aggressive": 85, "cost":13, "stock": 1},
         {"name": "kimi antonoodle", "speed": 92, "racecraft": 88, "aggressive": 84, "cost":11, "stock": 1},
